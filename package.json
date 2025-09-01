@@ -1,0 +1,10 @@
+{
+  "name": "pcs-senior-assassin",
+  "version": "1.0.0",
+  "private": true,
+  "type": "commonjs",
+  "dependencies": {
+    "@netlify/blobs": "^6.1.0",
+    "twilio": "^4.21.0"
+  }
+}

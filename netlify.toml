@@ -1,0 +1,21 @@
+[functions]
+  node_bundler = "esbuild"
+
+# Weekly automatic starts (optional)
+# [[scheduled.functions]]
+#   name = "start-week"
+#   cron = "0 9 * * MON" # every Monday at 09:00 server time
+
+# Scheduled vote opener — runs at 20:00 and 21:00 UTC Fridays (covers 3 PM Central in CDT/CST).
+[[scheduled.functions]]
+  name = "start-vote"
+  cron = "0 20 * * FRI"
+
+[[scheduled.functions]]
+  name = "start-vote"
+  cron = "0 21 * * FRI"
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Referrer-Policy = "strict-origin-when-cross-origin"

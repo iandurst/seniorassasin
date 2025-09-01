@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PCS Senior Assasin — Sign up</title>
+  <link rel="stylesheet" href="/assets/css/styles.css" />
+</head>
+<body>
+  <div class="nav">
+    <div class="wrap">
+      <div class="brand"><img class="logo" src="/assets/logo.svg" alt="PCS Senior Assasin logo" /><span>PCS Senior Assasin</span></div>
+      <div class="navlinks">
+        <a href="/index.html">Home</a>
+        <a href="/rules.html">Rules</a>
+        <a href="/vote.html">Voting</a>
+        <a href="https://www.instagram.com/pcsseniorassasin/" target="_blank" rel="noopener">Instagram</a>
+        <a href="/admin.html">Admin</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <h1>Join PCS Senior Assasin</h1>
+    <div class="card">
+      <form id="signup">
+        <div>
+          <label>First name</label>
+          <input name="firstName" required placeholder="Taylor" autocomplete="given-name" />
+        </div>
+        <div>
+          <label>Last name</label>
+          <input name="lastName" required placeholder="Nguyen" autocomplete="family-name" />
+        </div>
+        <div>
+          <label>Phone number</label>
+          <input name="phone" type="tel" inputmode="numeric" required placeholder="(555) 123-4567" autocomplete="tel" />
+          <div class="small">Used only for gameplay texts. Standard carrier rates apply.</div>
+        </div>
+        <button type="submit">Join the game</button>
+      </form>
+      <div id="result" style="margin-top:12px"></div>
+      <p class="small">An admin will review and approve your entry.</p>
+    </div>
+  </div>
+  <script src="/assets/js/common.js"></script>
+  <script src="/assets/js/signup.js"></script>
+</body>
+</html>

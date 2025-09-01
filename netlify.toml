@@ -1,0 +1,12 @@
+[functions]
+  node_bundler = "esbuild"
+
+# If you want weekly automatic starts, uncomment and adjust this scheduled function:
+# [[scheduled.functions]]
+#   name = "start-week"
+#   cron = "0 9 * * MON" # every Monday at 09:00 server time
+
+[[headers]]
+  for = "/*"
+  [headers.values]
+    Referrer-Policy = "strict-origin-when-cross-origin"

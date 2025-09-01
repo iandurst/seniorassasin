@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PCS Senior Assasin — Vote</title>
+  <link rel="stylesheet" href="/assets/css/styles.css" />
+</head>
+<body>
+  <div class="nav">
+    <div class="wrap">
+      <div class="brand"><img class="logo" src="/assets/logo.svg" alt="PCS Senior Assasin logo" /><span>PCS Senior Assasin</span></div>
+      <div class="navlinks">
+        <a href="/index.html">Home</a>
+        <a href="/rules.html">Rules</a>
+        <a href="https://www.instagram.com/pcsseniorassasin/" target="_blank" rel="noopener">Instagram</a>
+        <a href="/admin.html">Admin</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <h1>Friday Vote</h1>
+    <div class="card" id="voteCard">
+      <div id="voteStatus" class="small">Checking voting window…</div>
+      <div id="voteFormWrap" style="display:none; margin-top:10px">
+        <form id="voteForm">
+          <div>
+            <label>Phone number (the one you signed up with)</label>
+            <input name="phone" required placeholder="(555) 123-4567" />
+          </div>
+          <div>
+            <label>Your choice</label>
+            <select name="choice" required>
+              <option value="stop">Stop the game</option>
+              <option value="continue">Continue</option>
+            </select>
+          </div>
+          <button type="submit">Submit vote</button>
+        </form>
+        <div id="voteMsg" style="margin-top:10px"></div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/assets/js/common.js"></script>
+  <script src="/assets/js/vote.js"></script>
+</body>
+</html>

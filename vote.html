@@ -1,0 +1,19 @@
+<!doctype html><html><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1">
+<title>PCS Senior Assasin — Vote</title><link rel=stylesheet href="/assets/css/styles.css"></head>
+<body><div class=nav><div class=wrap><div class=brand><span>PCS Senior Assasin</span></div>
+<div class=navlinks><a href="/index.html">Home</a><a href="/rules.html">Rules</a><a href="/admin.html">Admin</a></div></div></div>
+<div class=container><h1>Friday Vote</h1><div class=card><div id=voteStatus class=small>Checking…</div>
+<div id=voteFormWrap style="display:none;margin-top:10px"><form id=voteForm><div><label>Phone</label><input name=phone required placeholder="(555) 123-4567"></div>
+<div><label>Your choice</label><select name=choice required><option value=stop>Stop the game</option><option value=continue>Continue</option></select></div>
+<button>Submit vote</button></form><div id=voteMsg style="margin-top:10px"></div></div></div></div>
+<script src="/assets/js/common.js"></script>
+<script>
+async function loadVote(){ try{ const d=await api('/vote?mode=state'); const s=d.state;
+ if(!s.open){ document.getElementById('voteStatus').textContent='Voting is closed. Fridays 3–6 PM CT during active weeks.'; return; }
+ document.getElementById('voteStatus').textContent='Voting is OPEN'; document.getElementById('voteFormWrap').style.display='block';
+ }catch{ document.getElementById('voteStatus').textContent='Could not fetch vote status.' }}
+document.getElementById('voteForm')?.addEventListener('submit',async(e)=>{ e.preventDefault(); const p=Object.fromEntries(new FormData(e.target).entries());
+ try{ await api('/vote',{method:'POST',body:JSON.stringify(p)}); document.getElementById('voteMsg').innerHTML='<div class=card>Your vote has been recorded.</div>'; e.target.reset(); }catch(err){ document.getElementById('voteMsg').textContent=err.data?.error||'Vote failed.' }
+});
+loadVote();
+</script></body></html>

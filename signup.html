@@ -1,0 +1,17 @@
+<!doctype html><html><head><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1">
+<title>PCS Senior Assasin — Sign up</title><link rel=stylesheet href="/assets/css/styles.css"></head>
+<body><div class=nav><div class=wrap><div class=brand><span>PCS Senior Assasin</span></div>
+<div class=navlinks><a href="/index.html">Home</a><a href="/rules.html">Rules</a><a href="/vote.html">Vote</a><a href="/admin.html">Admin</a></div></div></div>
+<div class=container><h1>Join PCS Senior Assasin</h1>
+<div class=card><form id=signup><div><label>First name</label><input name=firstName required></div>
+<div><label>Last name</label><input name=lastName required></div>
+<div><label>Phone</label><input name=phone required placeholder="(555) 123-4567"></div>
+<button type=submit>Join the game</button></form><div id=result class=small></div></div></div>
+<script src="/assets/js/common.js"></script>
+<script>
+document.getElementById('signup').addEventListener('submit', async (e)=>{
+ e.preventDefault(); const fd=new FormData(e.target); const payload=Object.fromEntries(fd.entries());
+ try{ await api('/signup',{method:'POST',body:JSON.stringify(payload)}); document.getElementById('result').innerHTML='<div class=card>Thanks for signing up!</div>'; e.target.reset(); }
+ catch(err){ document.getElementById('result').textContent=err.data?.error||'Sign up failed.'; }
+});
+</script></body></html>

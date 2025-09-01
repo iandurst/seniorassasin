@@ -1,0 +1,19 @@
+
+[functions]
+  node_bundler = "esbuild"
+
+[[scheduled.functions]]
+  name = "open-vote"
+  cron = "0 20 * * 5"
+
+[[scheduled.functions]]
+  name = "open-vote"
+  cron = "0 21 * * 5"
+
+[[scheduled.functions]]
+  name = "close-vote"
+  cron = "0 23 * * 5"
+
+[[scheduled.functions]]
+  name = "close-vote"
+  cron = "0 0 * * 6"

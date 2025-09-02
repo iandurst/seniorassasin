@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Sign Up</title>
+  <link rel="stylesheet" href="/assets/style.css">
+</head>
+<body>
+  <header class="site-header">
+    <h1>Sign Up</h1>
+    <nav>
+      <a href="/">Home</a>
+      <a href="/rules.html">Rules</a>
+    </nav>
+  </header>
+  <main>
+    <section class="card">
+      <form id="signupForm" class="form">
+        <label>
+          Name
+          <input type="text" name="name" required placeholder="Jane Doe">
+        </label>
+        <label>
+          Mobile Number (SMS)
+          <input type="tel" name="phone" required placeholder="+1 555 123 4567">
+        </label>
+        <button class="btn" type="submit">Sign up</button>
+      </form>
+      <div id="status" class="status muted"></div>
+    </section>
+  </main>
+  <script src="/assets/js/signup.js"></script>
+</body>
+</html>

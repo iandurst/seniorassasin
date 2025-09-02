@@ -1,0 +1,14 @@
+{
+  "name": "senior-assassin",
+  "version": "2.0.0",
+  "private": true,
+  "type": "commonjs",
+  "scripts": {
+    "build": "echo 'static site'",
+    "serve": "npx serve public"
+  },
+  "engines": {
+    "node": ">=18"
+  },
+  "dependencies": {}
+}

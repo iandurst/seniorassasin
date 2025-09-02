@@ -1,0 +1,163 @@
+
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Admin</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <style>
+    body { font-family: system-ui, -apple-system, Segoe UI, Roboto, sans-serif; margin: 24px; line-height: 1.45; }
+    h1 { margin-bottom: 8px; }
+    .card { border: 1px solid #ddd; border-radius: 8px; padding: 16px; margin: 16px 0; }
+    button { padding: 10px 14px; border: 1px solid #ccc; border-radius: 6px; background: #fafafa; cursor: pointer; }
+    button.danger { background: #ffecec; border-color: #f3b1b1; }
+    button.primary { background: #eef6ff; border-color: #b8d3ff; }
+    .row { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+    .muted { color: #777; font-size: 0.9em; }
+    #log { white-space: pre-wrap; background: #0b1020; color: #cde4ff; padding: 12px; border-radius: 8px; font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; }
+    .pill { display: inline-block; padding: 4px 8px; border-radius: 999px; border: 1px solid #ddd; font-size: 12px; }
+    .ok { background: #e6f7ed; border-color: #b6e3c4; }
+    .warn { background: #fff7e6; border-color: #ffe2a8; }
+  </style>
+</head>
+<body>
+  <h1>Admin</h1>
+  <p class="muted">Enter your admin token once. It will be stored in this browser only.</p>
+  <div class="card">
+    <div class="row">
+      <input id="token" type="password" placeholder="Admin token" style="flex:1; max-width: 320px;">
+      <button class="primary" onclick="saveToken()">Save token</button>
+      <span id="tokenSaved" class="pill warn">Not saved</span>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Purge</h2>
+    <div class="row">
+      <button id="startPurge" class="primary" onclick="startPurge()">Start 3‑hour Purge</button>
+      <button id="endPurge" onclick="endPurge()">End Purge Now</button>
+      <span id="purgeStatus" class="pill">Status: …</span>
+    </div>
+    <p id="countdown" class="muted"></p>
+  </div>
+
+  <div class="card">
+    <h2>Reset All</h2>
+    <p class="muted">Clears participants, assignments, votes, settings → default. Purge state removed.</p>
+    <button class="danger" onclick="resetAll()">Reset Everything</button>
+  </div>
+
+  <div class="card">
+    <h2>Telnyx Health</h2>
+    <button onclick="checkTelnyx()">Run Checks</button>
+    <div id="health"></div>
+  </div>
+
+  <div class="card">
+    <h2>Logs</h2>
+    <div id="log"></div>
+  </div>
+
+<script>
+const log = (msg, obj) => {
+  const el = document.getElementById('log');
+  const time = new Date().toLocaleTimeString();
+  el.textContent += `\\n[${time}] ${msg}` + (obj ? `\\n${JSON.stringify(obj, null, 2)}\\n` : '\\n');
+  el.scrollTop = el.scrollHeight;
+};
+const getToken = () => localStorage.getItem('ADMIN_TOKEN') || '';
+const setToken = (v) => localStorage.setItem('ADMIN_TOKEN', v);
+
+function saveToken(){
+  const val = document.getElementById('token').value;
+  setToken(val || '');
+  updateTokenBadge();
+}
+
+function updateTokenBadge(){
+  const badge = document.getElementById('tokenSaved');
+  if (getToken()) { badge.textContent = 'Saved'; badge.className = 'pill ok'; }
+  else { badge.textContent = 'Not saved'; badge.className = 'pill warn'; }
+}
+
+async function startPurge(){
+  if (!getToken()) return alert('Save your admin token first.');
+  if (!confirm('Start a 3‑hour purge and notify all players?')) return;
+  const r = await fetch('/.netlify/functions/admin-purge', {
+    method: 'POST',
+    headers: { 'content-type': 'application/json', 'x-admin-token': getToken() },
+    body: JSON.stringify({ action: 'start' })
+  });
+  const j = await r.json().catch(()=>({}));
+  log('startPurge result', j);
+  updatePurgeStatus();
+}
+
+async function endPurge(){
+  if (!getToken()) return alert('Save your admin token first.');
+  if (!confirm('End purge immediately?')) return;
+  const r = await fetch('/.netlify/functions/admin-purge', {
+    method: 'POST',
+    headers: { 'content-type': 'application/json', 'x-admin-token': getToken() },
+    body: JSON.stringify({ action: 'end' })
+  });
+  const j = await r.json().catch(()=>({}));
+  log('endPurge result', j);
+  updatePurgeStatus();
+}
+
+async function resetAll(){
+  if (!getToken()) return alert('Save your admin token first.');
+  if (!confirm('Really reset ALL data? This cannot be undone.')) return;
+  const r = await fetch('/.netlify/functions/admin-reset', {
+    method: 'POST',
+    headers: { 'x-admin-token': getToken() }
+  });
+  const j = await r.json().catch(()=>({}));
+  log('resetAll result', j);
+}
+
+async function checkTelnyx(){
+  const r = await fetch('/.netlify/functions/telnyx-health');
+  const j = await r.json().catch(()=>({}));
+  document.getElementById('health').innerHTML = '<pre>'+JSON.stringify(j, null, 2)+'</pre>';
+  log('telnyx health', j);
+}
+
+let countdownTimer = null;
+async function updatePurgeStatus(){
+  const badge = document.getElementById('purgeStatus');
+  const r = await fetch('/.netlify/functions/purge-status');
+  const j = await r.json().catch(()=>({}));
+  if (j.active) {
+    badge.textContent = 'Status: ACTIVE';
+    badge.className = 'pill ok';
+    startCountdown(j.endsAt);
+  } else {
+    badge.textContent = 'Status: INACTIVE';
+    badge.className = 'pill warn';
+    stopCountdown();
+  }
+}
+
+function startCountdown(endsAtIso){
+  stopCountdown();
+  const ends = Date.parse(endsAtIso);
+  countdownTimer = setInterval(()=>{
+    const now = Date.now();
+    const left = Math.max(0, ends - now);
+    const m = Math.floor(left/60000), s = Math.floor((left%60000)/1000);
+    document.getElementById('countdown').textContent = left > 0 ? `Time left: ${m}m ${s}s` : 'Purge ended';
+    if (left <= 0) stopCountdown();
+  }, 1000);
+}
+function stopCountdown(){
+  if (countdownTimer) clearInterval(countdownTimer);
+  document.getElementById('countdown').textContent = '';
+}
+
+updateTokenBadge();
+updatePurgeStatus();
+</script>
+</body>
+</html>

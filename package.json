@@ -1,0 +1,14 @@
+{
+  "name": "pcs-senior-assassin",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "dev": "vercel dev",
+    "build": "echo 'Static front-end; serverless via Vercel.'",
+    "start": "vercel dev"
+  },
+  "dependencies": {
+    "airtable": "^0.12.2",
+    "luxon": "^3.4.4"
+  }
+}

@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PCS Senior Assassin</title>
+  <link rel="stylesheet" href="/styles.css" />
+  <script src="/js/common.js" defer></script>
+
+<script src="/js/index.js" defer></script>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="brand">
+    <img id="siteLogo" src="/assets/logo-placeholder.svg" alt="PCS Senior Assassin logo" />
+    <span class="brand-title">PCS Senior Assassin</span>
+  </div>
+  <nav class="site-nav">
+    <a href="/index.html">Home</a>
+    <a href="/rules.html">Rules</a>
+    <a href="/signup.html">Sign Up</a>
+    <a href="/vote.html">Voting</a>
+    <a href="/admin.html">Admin</a>
+  </nav>
+</header>
+<div id="globalBanner" class="banner hidden"></div>
+
+<main class="container">
+  <section class="hero">
+    <h1>Welcome to PCS Senior Assassin</h1>
+    <p>Track eliminations, prize pool, and weekly status here.</p>
+  </section>
+
+  <section class="stats-grid">
+    <div class="card">
+      <h2>Top Eliminator</h2>
+      <div id="topEliminator" class="metric">Loading…</div>
+    </div>
+    <div class="card">
+      <h2>Current Prize Pool</h2>
+      <div id="prizePool" class="metric">$0</div>
+      <p class="muted">+${PRIZE_PER_ELIMINATION} for every elimination</p>
+    </div>
+  </section>
+
+  <section class="leaderboard card">
+    <h2>Leaderboard</h2>
+    <div class="table-wrapper">
+      <table id="leaderboardTable">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Status</th>
+            <th>Eliminations</th>
+          </tr>
+        </thead>
+        <tbody id="leaderboardBody">
+          <tr><td colspan="4">Loading…</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+</main>
+<footer class="site-footer">
+  <small>© 2025 PCS Senior Assassin — For water‑tag gameplay only. Stay safe & follow the rules.</small>
+</footer>
+</body>
+</html>

@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PCS Senior Assassin</title>
+  <link rel="stylesheet" href="/styles.css" />
+  <script src="/js/common.js" defer></script>
+
+<script src="/js/admin.js" defer></script>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="brand">
+    <img id="siteLogo" src="/assets/logo-placeholder.svg" alt="PCS Senior Assassin logo" />
+    <span class="brand-title">PCS Senior Assassin</span>
+  </div>
+  <nav class="site-nav">
+    <a href="/index.html">Home</a>
+    <a href="/rules.html">Rules</a>
+    <a href="/signup.html">Sign Up</a>
+    <a href="/vote.html">Voting</a>
+    <a href="/admin.html">Admin</a>
+  </nav>
+</header>
+<div id="globalBanner" class="banner hidden"></div>
+
+<main class="container">
+  <section class="card">
+    <h1>Admin</h1>
+    <div id="adminAuth" class="auth-box">
+      <p>Enter admin password to continue.</p>
+      <input id="adminPassword" type="password" placeholder="Password" />
+      <button id="adminLoginBtn" class="btn">Unlock</button>
+      <div id="adminAuthMsg" class="muted"></div>
+    </div>
+
+    <div id="adminPanel" class="hidden">
+      <div class="admin-actions">
+        <button id="startWeekBtn" class="btn">Start New Week</button>
+        <button id="resetWeekBtn" class="btn warning">Reset This Week</button>
+        <button id="fullResetBtn" class="btn danger">FULL RESET (All Data)</button>
+      </div>
+
+      <h2>Participants</h2>
+      <div class="table-wrapper">
+        <table id="participantsTable">
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Phone</th>
+              <th>Status</th>
+              <th>Verified</th>
+              <th>Eliminations</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="participantsBody">
+            <tr><td colspan="6">Loading…</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>Record Elimination</h2>
+      <form id="elimForm" class="form-grid">
+        <label>Eliminator (Participant ID)<input name="eliminatorId" required /></label>
+        <label>Eliminated (Participant ID)<input name="eliminatedId" required /></label>
+        <button type="submit" class="btn">Record</button>
+      </form>
+      <div id="elimMsg" class="muted"></div>
+
+      <h2>Votes (This Sunday)</h2>
+      <div id="votesBox" class="scroll-box"></div>
+    </div>
+  </section>
+</main>
+<footer class="site-footer">
+  <small>© 2025 PCS Senior Assassin</small>
+</footer>
+</body>
+</html>

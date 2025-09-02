@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PCS Senior Assassin</title>
+  <link rel="stylesheet" href="/styles.css" />
+  <script src="/js/common.js" defer></script>
+
+<script src="/js/signup.js" defer></script>
+</head>
+<body>
+
+<header class="site-header">
+  <div class="brand">
+    <img id="siteLogo" src="/assets/logo-placeholder.svg" alt="PCS Senior Assassin logo" />
+    <span class="brand-title">PCS Senior Assassin</span>
+  </div>
+  <nav class="site-nav">
+    <a href="/index.html">Home</a>
+    <a href="/rules.html">Rules</a>
+    <a href="/signup.html">Sign Up</a>
+    <a href="/vote.html">Voting</a>
+    <a href="/admin.html">Admin</a>
+  </nav>
+</header>
+<div id="globalBanner" class="banner hidden"></div>
+
+<main class="container">
+  <section class="card">
+    <h1>Sign Up</h1>
+    <form id="signupForm" class="form-grid">
+      <label>
+        First Name
+        <input name="firstName" required maxlength="50" />
+      </label>
+      <label>
+        Last Name
+        <input name="lastName" required maxlength="50" />
+      </label>
+      <label>
+        Phone (digits only)
+        <input name="phone" required pattern="\d10" placeholder="5551234567" />
+      </label>
+      <button type="submit" class="btn">Submit</button>
+    </form>
+    <div id="signupMsg" class="muted"></div>
+  </section>
+</main>
+<footer class="site-footer">
+  <small>© 2025 PCS Senior Assassin</small>
+</footer>
+</body>
+</html>

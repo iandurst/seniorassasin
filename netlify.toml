@@ -1,0 +1,69 @@
+# Netlify config for PCS Senior Assassin
+[build]
+  publish = "public"
+  command = "npm run build"
+
+[functions]
+  directory = "netlify/functions"
+  node_bundler = "esbuild"
+
+# Explicit redirects mapping API endpoints to Netlify Functions
+[[redirects]]
+  from = "/api/status"
+  to = "/.netlify/functions/status"
+  status = 200
+
+[[redirects]]
+  from = "/api/leaderboard"
+  to = "/.netlify/functions/leaderboard"
+  status = 200
+
+[[redirects]]
+  from = "/api/prizepool"
+  to = "/.netlify/functions/prizepool"
+  status = 200
+
+[[redirects]]
+  from = "/api/signup"
+  to = "/.netlify/functions/signup"
+  status = 200
+
+[[redirects]]
+  from = "/api/participants"
+  to = "/.netlify/functions/participants"
+  status = 200
+
+[[redirects]]
+  from = "/api/verify"
+  to = "/.netlify/functions/verify"
+  status = 200
+
+[[redirects]]
+  from = "/api/startWeek"
+  to = "/.netlify/functions/startWeek"
+  status = 200
+
+[[redirects]]
+  from = "/api/resetWeek"
+  to = "/.netlify/functions/resetWeek"
+  status = 200
+
+[[redirects]]
+  from = "/api/fullReset"
+  to = "/.netlify/functions/fullReset"
+  status = 200
+
+[[redirects]]
+  from = "/api/elimination"
+  to = "/.netlify/functions/elimination"
+  status = 200
+
+[[redirects]]
+  from = "/api/votes"
+  to = "/.netlify/functions/votes"
+  status = 200
+
+[[redirects]]
+  from = "/api/admin/ping"
+  to = "/.netlify/functions/admin-ping"
+  status = 200

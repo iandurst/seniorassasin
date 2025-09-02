@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PCS Senior Assasin — Admin</title>
+  <link rel="stylesheet" href="/assets/css/styles.css" />
+</head>
+<body>
+  <div class="nav">
+    <div class="wrap">
+      <div class="brand"><img class="logo" src="/assets/logo.svg" alt="PCS Senior Assasin logo" /><span>PCS Senior Assasin</span></div>
+      <div class="navlinks">
+        <a href="/index.html">Home</a>
+        <a href="/rules.html">Rules</a>
+        <a href="/signup.html" class="cta">Sign up</a>
+        <a href="/vote.html">Voting</a>
+        <a href="https://www.instagram.com/pcsseniorassasin/" target="_blank" rel="noopener">Instagram</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="container">
+    <h1>Admin</h1>
+
+    <div id="loginForm" class="card">
+      <p class="small">Enter the admin password to manage the game.</p>
+      <form>
+        <label>Password</label>
+        <input id="secret" type="password" placeholder="••••••••••" />
+        <button type="submit">Unlock</button>
+      </form>
+      </div>
+
+    <div class="card" id="pendingCard" style="display:none">
+      <h2>Pending approvals</h2>
+      <p class="small">Review new sign-ups and approve to add them to the game.</p>
+      <table class="table">
+        <thead><tr><th>Name</th><th>Phone</th><th>Actions</th></tr></thead>
+        <tbody id="pendingList"></tbody>
+      </table>
+    </div>
+
+    <div id="adminPanel" style="display:none">
+      <div class="grid">
+        <div class="card">
+          <div class="toolbar">
+            <button id="refresh">Refresh</button>
+          </div>
+          <h2>Participants</h2>
+          <div class="small" id="totals">—</div>
+          <table class="table">
+            <thead><tr><th>Name</th><th>Elims</th><th>Status</th></tr></thead>
+            <tbody id="adminList"></tbody>
+          </table>
+        </div>
+
+        <div class="card">
+          <h2>Game settings</h2>
+          <div class="grid" style="grid-template-columns: 1fr 1fr">
+            <div>
+              <label>Entry fee (USD)</label>
+              <input id="entryFee" type="number" min="0" step="1" />
+            </div>
+            <div>
+              <label>Prize pool override (optional)</label>
+              <input id="prizeOverride" type="number" min="0" step="1" />
+            </div>
+          </div>
+          <div class="toolbar" style="margin-top:10px">
+            <button id="saveSettings">Save settings</button>
+            <button id="startWeek">Start new week & send targets</button>
+          </div>
+
+          <fieldset style="margin-top:14px">
+            <legend>Record an elimination</legend>
+            <div class="grid" style="grid-template-columns: 1fr 1fr 140px">
+              <div>
+                <label>Eliminator</label>
+                <select id="killer"></select>
+              </div>
+              <div>
+                <label>Eliminated player</label>
+                <select id="target"></select>
+              </div>
+              <div style="display:flex;align-items:flex-end">
+                <button id="reportBtn" class="danger">Record</button>
+              </div>
+            </div>
+            <p class="small">This updates status and credits 1 elimination to the eliminator.</p>
+          </fieldset>
+
+          <div class="alert" style="margin-top:12px">
+            <strong>SMS setup (Telnyx):</strong> in Netlify, set environment variables
+            <code>TELNYX_API_KEY</code>, and either <code>TELNYX_MESSAGING_PROFILE_ID</code> or <code>TELNYX_FROM_NUMBER</code>.
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer small">
+      Only run games with consent, off school grounds, and within the posted safety rules.
+    </div>
+  </div>
+
+  <script src="/assets/js/common.js"></script>
+  <script src="/assets/js/admin.js"></script>
+
+<!-- Added: Weekly Targets panel (password-protected) -->
+<section class="card hidden" id="targetsCard">
+  <h2>Weekly Targets</h2>
+  <div class="row" style="margin-bottom:8px">
+    <label>Week <input type="number" id="weekNum" min="1" value="1" style="width:80px"></label>
+    <button class="btn primary" id="startWeek">Start Week (assign targets)</button>
+    <button class="btn" id="loadTargets">Load Targets</button>
+    <button class="btn" id="exportCsv">Export CSV</button>
+    <button class="btn" id="copyAll">Copy All Messages</button>
+  </div>
+  <p class="muted">Admin will text each participant manually from <strong>309‑648‑1257</strong>. Message format: <code>your target is &lt;name&gt;</code>.</p>
+  <div class="table-wrap">
+    <table id="targetsTable">
+      <thead>
+        <tr>
+          <th>#</th>
+          <th>Participant Name</th>
+          <th>Participant Phone</th>
+          <th>Target Name</th>
+          <th>Target Phone</th>
+          <th>Message</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+</section>
+
+<script src="/assets/js/admin-targets.js"></script>
+</body>
+</html>
